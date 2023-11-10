@@ -39,24 +39,24 @@ import { typedKeys } from "@/functions/object";
 
 const SelectColumnHeader = <T,>({ table }: { table: TanStackTable<T> }) => (
   <Checkbox
+    aria-label="Select all"
     checked={table.getIsAllPageRowsSelected()}
     onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-    aria-label="Select all"
   />
 );
 
 const SelectColumnCell = <T,>({ row }: { row: TanStackRow<T> }) => (
   <Checkbox
+    aria-label="Select row"
     checked={row.getIsSelected()}
     onCheckedChange={(value) => row.toggleSelected(!!value)}
-    aria-label="Select row"
   />
 );
 
 const ElementColumnHeader = <T,>({ column }: { column: TanStackColumn<T> }) => (
   <Button
-    variant="ghost"
     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+    variant="ghost"
   >
     {column.id}
     <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -88,7 +88,7 @@ export function DataTable<T extends Record<string, unknown>>({
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
+    [],
   );
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
@@ -115,16 +115,16 @@ export function DataTable<T extends Record<string, unknown>>({
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+          className="max-w-sm"
           onChange={(event) =>
             table.getColumn("email")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          placeholder="Filter emails..."
+          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
+            <Button className="ml-auto" variant="outline">
               Columns <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -134,9 +134,9 @@ export function DataTable<T extends Record<string, unknown>>({
               .filter((column) => column.getCanHide())
               .map((column) => (
                 <DropdownMenuCheckboxItem
-                  key={column.id}
-                  className="capitalize"
                   checked={column.getIsVisible()}
+                  className="capitalize"
+                  key={column.id}
                   onCheckedChange={(value) => column.toggleVisibility(!!value)}
                 >
                   {column.id}
@@ -156,7 +156,7 @@ export function DataTable<T extends Record<string, unknown>>({
                       ? null
                       : flexRender(
                           header.column.columnDef.header,
-                          header.getContext()
+                          header.getContext(),
                         )}
                   </TableHead>
                 ))}
@@ -167,14 +167,14 @@ export function DataTable<T extends Record<string, unknown>>({
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
-                  key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  key={row.id}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}
@@ -183,8 +183,8 @@ export function DataTable<T extends Record<string, unknown>>({
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={columns.length}
                   className="h-24 text-center"
+                  colSpan={columns.length}
                 >
                   No results.
                 </TableCell>
@@ -200,16 +200,16 @@ export function DataTable<T extends Record<string, unknown>>({
         </div>
         <div className="space-x-2">
           <Button
-            variant="outline"
-            onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
+            onClick={() => table.previousPage()}
+            variant="outline"
           >
             Previous
           </Button>
           <Button
-            variant="outline"
-            onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
+            onClick={() => table.nextPage()}
+            variant="outline"
           >
             Next
           </Button>

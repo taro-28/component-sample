@@ -8,6 +8,11 @@ type User = {
   avatar: string;
   birthdate: Date;
   link: string;
+  groups: {
+    id: string;
+    name: string;
+  }[];
+  departments: string[];
 };
 
 const createUser = (): User => ({
@@ -18,6 +23,11 @@ const createUser = (): User => ({
   avatar: faker.image.avatarLegacy(),
   birthdate: faker.date.birthdate(),
   link: faker.internet.url(),
+  departments: faker.helpers.multiple(() => faker.commerce.department()),
+  groups: faker.helpers.multiple(() => ({
+    id: faker.string.uuid(),
+    name: faker.company.name(),
+  })),
 });
 
 export const users = faker.helpers.multiple(createUser, {

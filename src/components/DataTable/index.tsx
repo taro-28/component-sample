@@ -86,7 +86,7 @@ export function DataTable<T extends Record<string, unknown>>({
 
   return (
     <div className="w-full">
-      <div className="flex items-center py-4">
+      <div className="flex items-center space-x-4 py-4">
         <Input
           className="max-w-sm"
           onChange={(e) => setGlobalFilter(String(e.target.value))}
@@ -105,8 +105,8 @@ export function DataTable<T extends Record<string, unknown>>({
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button className="ml-auto" variant="outline">
-              Columns <ChevronDown className="ml-2 h-4 w-4" />
+            <Button variant="outline">
+              Visible Columns <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">

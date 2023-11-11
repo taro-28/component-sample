@@ -44,7 +44,7 @@ export const Cell = ({ value, className }: Props) => {
         return value.map((item, index) => (
           <div
             className={twMerge("p-2", index !== 0 && "border-t", className)}
-            key={item}
+            key={JSON.stringify(item)}
           >
             <Cell value={item} />
           </div>
@@ -54,7 +54,7 @@ export const Cell = ({ value, className }: Props) => {
         return (
           <div className="grid grid-cols-[min-content_1fr]">
             {typedEntries(value).map(([key, value], index) => (
-              <Fragment key={key}>
+              <Fragment key={`${key}-${JSON.stringify(value)}`}>
                 <div className={twMerge("p-2", index !== 0 && "border-t")}>
                   {key}
                 </div>

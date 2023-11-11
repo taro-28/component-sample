@@ -10,11 +10,8 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-  Table as TanStackTable,
-  Row as TanStackRow,
-  Column as TanStackColumn,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -32,35 +29,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Checkbox } from "../ui/checkbox";
 import { typedKeys } from "@/functions/object";
 import { useState } from "react";
-
-const SelectColumnHeader = <T,>({ table }: { table: TanStackTable<T> }) => (
-  <Checkbox
-    aria-label="Select all"
-    checked={table.getIsAllPageRowsSelected()}
-    onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-  />
-);
-
-const SelectColumnCell = <T,>({ row }: { row: TanStackRow<T> }) => (
-  <Checkbox
-    aria-label="Select row"
-    checked={row.getIsSelected()}
-    onCheckedChange={(value) => row.toggleSelected(!!value)}
-  />
-);
-
-const ElementColumnHeader = <T,>({ column }: { column: TanStackColumn<T> }) => (
-  <Button
-    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-    variant="ghost"
-  >
-    {column.id}
-    <ArrowUpDown className="ml-2 h-4 w-4" />
-  </Button>
-);
+import { SelectColumnHeader } from "./SelectColumnHeader";
+import { SelectColumnCell } from "./SelectColumnCell";
+import { ColumnHeader } from "./ColumnHeader";
 
 type Props<T> = {
   data: T[];
@@ -71,7 +44,7 @@ export function DataTable<T extends Record<string, unknown>>({
 }: Props<T>) {
   const dataColumns: ColumnDef<T>[] = typedKeys(data[0]).map((key: string) => ({
     accessorKey: key,
-    header: ElementColumnHeader,
+    header: ColumnHeader,
     cell: ({ row }) => <div>{row.getValue(key)}</div>,
   }));
 

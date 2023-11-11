@@ -1,4 +1,5 @@
 import { typedEntries } from "@/functions/object";
+import Link from "next/link";
 import { Fragment } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -19,14 +20,14 @@ export const Cell = ({ value, className }: Props) => {
         return <img alt={value} className={className} src={value} />;
       }
       return (
-        <a
+        <Link
           className={twMerge("text-blue-500", className)}
           href={value}
           rel="noopener noreferrer"
           target="_blank"
         >
           {value}
-        </a>
+        </Link>
       );
 
     case "number":

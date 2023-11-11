@@ -11,6 +11,7 @@ type User = {
   age: number;
   avatar: string;
   birthdate: Date;
+  link: string;
 };
 
 const createUser = (): User => ({
@@ -20,6 +21,7 @@ const createUser = (): User => ({
   age: faker.number.int({ min: 18, max: 100 }),
   avatar: faker.image.avatarLegacy(),
   birthdate: faker.date.birthdate(),
+  link: faker.internet.url(),
 });
 
 const data: User[] = faker.helpers.multiple(createUser, {

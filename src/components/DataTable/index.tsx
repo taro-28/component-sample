@@ -34,6 +34,7 @@ import { useState } from "react";
 import { SelectColumnHeader } from "./SelectColumnHeader";
 import { SelectColumnCell } from "./SelectColumnCell";
 import { ColumnHeader } from "./ColumnHeader";
+import { Cell } from "./Cell";
 
 type Props<T> = {
   data: T[];
@@ -45,7 +46,7 @@ export function DataTable<T extends Record<string, unknown>>({
   const dataColumns: ColumnDef<T>[] = typedKeys(data[0]).map((key: string) => ({
     accessorKey: key,
     header: ColumnHeader,
-    cell: ({ row }) => <div>{row.getValue(key)}</div>,
+    cell: ({ row }) => <Cell value={row.getValue(key)} />,
   }));
 
   const columns: ColumnDef<T>[] = [

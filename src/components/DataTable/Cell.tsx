@@ -8,6 +8,9 @@ type Props = {
 };
 
 export const Cell = ({ value, className }: Props) => {
+  if (value instanceof Date) {
+    return <div className={className}>{value.toLocaleString()}</div>;
+  }
   switch (typeof value) {
     case "string":
       if (!isUrl(value)) return <div className={className}>{value}</div>;

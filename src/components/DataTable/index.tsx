@@ -93,6 +93,16 @@ export function DataTable<T extends Record<string, unknown>>({
           placeholder="Search all columns..."
           value={globalFilter ?? ""}
         />
+        <Button
+          onClick={() =>
+            console.table(
+              table.getSelectedRowModel().rows.map((row) => row.original),
+            )
+          }
+          variant="outline"
+        >
+          log selection
+        </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button className="ml-auto" variant="outline">

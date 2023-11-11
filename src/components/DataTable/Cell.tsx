@@ -10,6 +10,22 @@ type Props = {
 export const Cell = ({ value, className }: Props) => {
   switch (typeof value) {
     case "string":
+      if (!isUrl(value)) return <div className={className}>{value}</div>;
+      if (isImageUrl(value)) {
+        // eslint-disable-next-line @next/next/no-img-element
+        return <img alt={value} className={className} src={value} />;
+      }
+      return (
+        <a
+          className={twMerge("text-blue-500", className)}
+          href={value}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          {value}
+        </a>
+      );
+
     case "number":
     case "boolean":
     case "bigint":
@@ -61,3 +77,21 @@ const isObject = (value: unknown): value is Record<string, unknown> =>
   value !== null &&
   !Array.isArray(value) &&
   value !== undefined;
+
+const isUrl = (string: string) => {
+  let url;
+
+  try {
+    url = new URL(string);
+  } catch (_) {
+    return false;
+  }
+
+  return url.protocol === "http:" || url.protocol === "https:";
+};
+
+const isImageUrl = (string: string) => {
+  const validImageRegex =
+    /\.(apng|avif|gif|jpe?g|jfif|pjpeg|pjp|png|svg|webp|bmp|ico|cur|tiff?)($|\?)/i;
+  return validImageRegex.test(string);
+};

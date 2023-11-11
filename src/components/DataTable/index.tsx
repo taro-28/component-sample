@@ -32,7 +32,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Checkbox } from "./ui/checkbox";
+import { Checkbox } from "../ui/checkbox";
 import { typedKeys } from "@/functions/object";
 import { useState } from "react";
 
@@ -74,6 +74,7 @@ export function DataTable<T extends Record<string, unknown>>({
     header: ElementColumnHeader,
     cell: ({ row }) => <div>{row.getValue(key)}</div>,
   }));
+
   const columns: ColumnDef<T>[] = [
     {
       id: "select",
@@ -89,6 +90,7 @@ export function DataTable<T extends Record<string, unknown>>({
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
   const [globalFilter, setGlobalFilter] = useState("");
+
   const table = useReactTable({
     data,
     columns,
@@ -107,6 +109,7 @@ export function DataTable<T extends Record<string, unknown>>({
       globalFilter,
     },
   });
+
   return (
     <div className="w-full">
       <div className="flex items-center py-4">

@@ -18,7 +18,7 @@ const createUser = (): User => ({
   name: faker.internet.userName(),
   email: faker.internet.email(),
   age: faker.number.int({ min: 18, max: 100 }),
-  avatar: faker.image.avatar(),
+  avatar: faker.image.avatarLegacy(),
   birthdate: faker.date.birthdate(),
 });
 
